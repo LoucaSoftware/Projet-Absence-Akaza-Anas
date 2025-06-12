@@ -1,0 +1,9 @@
+<!-- student_form.html -->
+{% extends "gestionapp/base.html" %}
+{% block title %}{% if form.instance.pk %}Modifier Étudiant{% else %}Nouveau Étudiant{% endif %}{% endblock %}
+{% block content %}
+  <h2>{% if form.instance.pk %}Modifier{% else %}Ajouter{% endif %} un étudiant</h2>
+  <p class="intro">Complétez les champs puis Enregistrer.</p>
+  <form method="post" enctype="multipart/form-data">{% csrf_token %}{{ form.as_p }}<button class="button" type="submit">Enregistrer</button></form>
+  <a class="button link" href="{% url 'student_list' %}">Retour</a>
+{% endblock %}

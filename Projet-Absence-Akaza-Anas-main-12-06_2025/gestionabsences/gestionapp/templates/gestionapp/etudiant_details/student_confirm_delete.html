@@ -1,0 +1,9 @@
+<!-- student_confirm_delete.html -->
+{% extends "gestionapp/base.html" %}
+{% block title %}Supprimer Étudiant{% endblock %}
+{% block content %}
+  <h2>Confirmer suppression</h2>
+  <p class="intro">Supprimer l'étudiant {{ student.nom }} {{ student.prenom }} ?</p>
+  <form method="post">{% csrf_token %}<button class="button danger" type="submit">Oui supprimer</button>
+  <a class="button link" href="{% url 'student_list' %}">Annuler</a></form>
+{% endblock %}

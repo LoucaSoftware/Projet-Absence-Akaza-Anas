@@ -1,0 +1,11 @@
+<!-- teacher_detail.html -->
+{% extends "gestionapp/base.html" %}
+{% block title %}Détail Enseignant{% endblock %}
+{% block content %}
+  <h2>{{ teacher.nom }} {{ teacher.prenom }}</h2>
+  <p class="intro">Informations détaillées de l'enseignant.</p>
+  <ul><li>Email: {{ teacher.email }}</li></ul>
+  <a class="button" href="{% url 'teacher_update' teacher.pk %}">Modifier</a>
+  <a class="button danger" href="{% url 'teacher_delete' teacher.pk %}">Supprimer</a>
+  <a class="button link" href="{% url 'teacher_list' %}">Retour</a>
+{% endblock %}

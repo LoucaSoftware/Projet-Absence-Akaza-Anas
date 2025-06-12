@@ -1,0 +1,10 @@
+{% extends "gestionapp/base.html" %}
+{% block title %}Supprimer absence{% endblock %}
+{% block content %}
+  <h2>Confirmer la suppression</h2>
+  <p>Voulez-vous vraiment supprimer l’absence de {{ absence.student.nom }} du {{ absence.date }} ?</p>
+  <form method="post">{% csrf_token %}
+    <button type="submit">Oui, supprimer</button>
+    <a href="{% url 'absence_list' %}">Non, revenir</a>
+  </form>
+{% endblock %}

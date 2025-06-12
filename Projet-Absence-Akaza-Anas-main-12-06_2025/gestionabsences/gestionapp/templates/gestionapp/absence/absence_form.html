@@ -1,0 +1,11 @@
+{% extends "gestionapp/base.html" %}
+{% block title %}{% if form.instance.pk %}Modifier{% else %}Ajouter{% endif %} absence{% endblock %}
+{% block content %}
+  <h2>{% if form.instance.pk %}Modifier{% else %}Ajouter{% endif %} une absence</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Enregistrer</button>
+  </form>
+  <p><a href="{% url 'absence_list' %}">Annuler</a></p>
+{% endblock %}
