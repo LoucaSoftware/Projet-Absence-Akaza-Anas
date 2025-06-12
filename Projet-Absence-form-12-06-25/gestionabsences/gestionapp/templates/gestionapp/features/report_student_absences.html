@@ -1,0 +1,38 @@
+{% extends "gestionapp/base.html" %}
+{% block title %}Rapport d’absences par étudiant{% endblock %}
+{% block content %}
+  <section class="report-section">
+    <h2>Historique d’absences de : {{ student.nom }} {{ student.prenom }}</h2>
+    <p class="intro">
+      Total des absences : <strong>{{ total_absences }}</strong> (<span style="color:green;">justifiées : {{ total_justified }}</span>, <span style="color:red;">non justifiées : {{ total_unjustified }}</span>)
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Cours</th>
+          <th>Date</th>
+          <th>Justifié</th>
+          <th>Motif</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for abs in absences %}
+        <tr>
+          <td>{{ abs.course.titre }}</td>
+          <td>{{ abs.date }}</td>
+          <td>{{ abs.justified|yesno:"Oui,Non" }}</td>
+          <td>{{ abs.justification }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4">Aucune absence enregistrée pour cet étudiant.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <div class="actions">
+      <a href="{% url 'student_list' %}" class="button-pill">Retour à la liste des étudiants</a>
+      <a href="{% url 'import_absences' %}" class="button-pill">Importer des absences</a>
+    </div>
+  </section>
+{% endblock %}

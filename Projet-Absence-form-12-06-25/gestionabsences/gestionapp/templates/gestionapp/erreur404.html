@@ -1,0 +1,29 @@
+# File: gestionabsences/urls.py
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('gestionapp.urls')),
+]
+
+handler404 = 'gestionapp.views.custom_404'
+
+
+# File: gestionapp/views.py
+from django.shortcuts import render
+
+def index(request):
+    return render(request, 'gestionapp/index.html')
+
+def custom_404(request, exception):
+    return render(request, 'gestionapp/erreur404.html', status=404)
+
+
+# File: gestionapp/urls.py
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.index, name='accueil'),
+]

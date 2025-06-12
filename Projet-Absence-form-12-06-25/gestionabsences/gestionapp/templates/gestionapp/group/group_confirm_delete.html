@@ -1,0 +1,9 @@
+<!-- group_confirm_delete.html -->
+{% extends "gestionapp/base.html" %}
+{% block title %}Supprimer Groupe{% endblock %}
+{% block content %}
+  <h2>Confirmer suppression</h2>
+  <p class="intro">Êtes-vous sûr de vouloir supprimer le groupe "{{ group.nom }}" ?</p>
+  <form method="post">{% csrf_token %}<button class="button danger" type="submit">Oui supprimer</button>
+  <a class="button link" href="{% url 'group_list' %}">Annuler</a></form>
+{% endblock %}
