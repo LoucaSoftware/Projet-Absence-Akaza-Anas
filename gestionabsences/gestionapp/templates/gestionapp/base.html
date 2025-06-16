@@ -15,15 +15,13 @@
       <div class="dropdown">
         <button class="dropbtn">Menu ⋮</button>
         <div class="dropdown-content">
-          <a href="{% url 'accueil' %}">Accueil</a>
-          <a href="{% url 'group_list' %}">Groupes</a>
-          <a href="{% url 'student_list' %}">Étudiants</a>
-          <a href="{% url 'teacher_list' %}">Enseignants</a>
-          <a href="{% url 'course_list' %}">Cours</a>
-          <a href="{% url 'absence_list' %}">Absences</a>
-          <a href="{% url 'import_absences' %}">Importer</a>
-          <a href="{% url 'report_course_absences' %}">Rapport Cours</a>
-          <a href="{% url 'report_student_absences' %}">Rapport Étudiant</a>
+          <a href="{% url 'gestionapp:accueil' %}">Accueil</a>
+          <a href="{% url 'gestionapp:group_list' %}">Groupes</a>
+          <a href="{% url 'gestionapp:student_list' %}">Étudiants</a>
+          <a href="{% url 'gestionapp:teacher_list' %}">Enseignants</a>
+          <a href="{% url 'gestionapp:course_list' %}">Cours</a>
+          <a href="{% url 'gestionapp:absence_list' %}">Absences</a>
+          <a href="{% url 'gestionapp:import_absences' %}">Importer</a>
         </div>
       </div>
     </nav>

@@ -161,9 +161,10 @@ class AbsenceDetailView(DetailView):
 
 
 
-from django.views.generic import FormView
+from django.views.generic import FormView, ListView
 from django.urls import reverse_lazy
 from .forms import ImportAbsencesForm
+from .models import Absence, Course, Student
 
 class ImportAbsencesView(FormView):
     template_name = 'gestionapp/absence/import_absences.html'
@@ -174,3 +175,21 @@ class ImportAbsencesView(FormView):
         fichier = form.cleaned_data['fichier_csv']
         # TA logique d’import ici…
         return super().form_valid(form)
+
+class CourseAbsencesReportView(ListView):
+    model = Absence
+    template_name = 'gestionapp/absence/report_course_absences.html'
+    context_object_name = 'absences'
+
+    def get_queryset(self):
+        course_pk = self.kwargs.get('pk')
+        return Absence.objects.filter(course__pk=course_pk)
+
+class StudentAbsencesReportView(ListView):
+    model = Absence
+    template_name = 'gestionapp/absence/report_student_absences.html'
+    context_object_name = 'absences'
+
+    def get_queryset(self):
+        student_pk = self.kwargs.get('pk')
+        return Absence.objects.filter(student__pk=student_pk)

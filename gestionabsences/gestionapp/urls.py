@@ -9,7 +9,8 @@ urlpatterns = [
     path('', views.AccueilView.as_view(), name='accueil'),
 
     path('admin/', admin.site.urls),
-    path('', include(('gestionapp.urls', 'gestionapp'), namespace='gestionapp')),
+    # Removed recursive include to prevent infinite recursion
+    # path('', include(('gestionapp.urls', 'gestionapp'), namespace='gestionapp')),
 
     # Groupes liste des groupes, création, détail, modification et suppression
     path('groups/', views.GroupListView.as_view(), name='group_list'),
