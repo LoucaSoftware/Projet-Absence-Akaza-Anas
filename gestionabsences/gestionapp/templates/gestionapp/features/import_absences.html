@@ -1,0 +1,25 @@
+
+{% extends "gestionapp/base.html" %}
+{% block title %}Importer des absences{% endblock %}
+{% block content %}
+  <section class="import-section">
+    <h2>Importer des absences depuis un fichier</h2>
+    <p class="intro">
+      Sélectionnez un fichier CSV ou Excel contenant vos données d’absences au format suivant :
+      <ul>
+        <li><strong>student_id</strong>, <strong>course_id</strong>, <strong>date</strong>, <strong>justified</strong>, <strong>justification_text</strong></li>
+      </ul>
+      Cliquez sur <em>Sélectionner un fichier</em>, puis sur <em>Importer</em>.
+    </p>
+
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="id_file">Fichier d’absences</label><br>
+        <input type="file" name="file" id="id_file" accept=".csv, .xlsx" required>
+      </div>
+      <button type="submit" class="button-pill">Importer</button>
+      <a href="{% url 'absence_list' %}" class="button-pill" style="background:#e74c3c;">Annuler</a>
+    </form>
+  </section>
+{% endblock %}
