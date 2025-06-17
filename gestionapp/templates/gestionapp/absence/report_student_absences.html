@@ -1,0 +1,31 @@
+{% extends "gestionapp/base.html" %}
+
+{% block content %}
+<h1>Absences Report for Student</h1>
+
+{% if absences %}
+    <table>
+        <thead>
+            <tr>
+                <th>Course</th>
+                <th>Date</th>
+                <th>Justified</th>
+                <th>Justification</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for absence in absences %}
+            <tr>
+                <td>{{ absence.course.title }}</td>
+                <td>{{ absence.course.date }}</td>
+                <td>{{ absence.justified }}</td>
+                <td>{{ absence.justification }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No absences found for this student.</p>
+{% endif %}
+
+{% endblock %}

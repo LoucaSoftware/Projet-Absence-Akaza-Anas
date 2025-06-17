@@ -1,0 +1,18 @@
+{% extends "gestionapp/base.html" %}
+{% block title %}Liste des absences{% endblock %}
+{% block content %}
+  <h2>Absences enregistrées</h2>
+  <a href="{% url 'absence_create' %}">Ajouter une absence</a>
+  <ul>
+    {% for absence in absences %}
+      <li>
+        {{ absence.student.nom }} – {{ absence.date }} :
+        <a href="{% url 'absence_detail' absence.pk %}">Détail</a>
+        | <a href="{% url 'absence_update' absence.pk %}">Modifier</a>
+        | <a href="{% url 'absence_delete' absence.pk %}">Supprimer</a>
+      </li>
+    {% empty %}
+      <li>Aucune absence.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
