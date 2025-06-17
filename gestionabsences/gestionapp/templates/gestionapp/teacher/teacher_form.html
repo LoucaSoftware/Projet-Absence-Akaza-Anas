@@ -5,5 +5,5 @@
   <h2>{% if form.instance.pk %}Modifier{% else %}Ajouter{% endif %} un enseignant</h2>
   <p class="intro">Saisissez les détails de l'enseignant puis Enregistrer.</p>
   <form method="post">{% csrf_token %}{{ form.as_p }}<button class="button" type="submit">Enregistrer</button></form>
-  <a class="button link" href="{% url 'teacher_list' %}">Retour</a>
+  <a class="button link" href="{% url 'gestionapp:teacher_list' %}">Retour</a>
 {% endblock %}

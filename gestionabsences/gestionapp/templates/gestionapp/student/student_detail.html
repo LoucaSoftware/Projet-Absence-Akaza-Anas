@@ -6,7 +6,7 @@
   <p class="intro">Détails et photo de l'étudiant.</p>
   <img src="{{ student.photo.url }}" alt="Photo de {{ student.nom }}" style="max-width:150px;border-radius:8px;">
   <ul><li>Email: {{ student.email }}</li><li>Groupe: {{ student.groupe.nom }}</li></ul>
-  <a class="button" href="{% url 'student_update' student.pk %}">Modifier</a>
-  <a class="button danger" href="{% url 'student_delete' student.pk %}">Supprimer</a>
-  <a class="button link" href="{% url 'student_list' %}">Retour</a>
+  <a class="button" href="{% url 'gestionapp:student_update' student.pk %}">Modifier</a>
+  <a class="button danger" href="{% url 'gestionapp:student_delete' student.pk %}">Supprimer</a>
+  <a class="button link" href="{% url 'gestionapp:student_list' %}">Retour</a>
 {% endblock %}

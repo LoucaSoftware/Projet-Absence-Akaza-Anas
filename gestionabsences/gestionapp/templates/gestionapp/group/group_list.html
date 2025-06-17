@@ -4,18 +4,18 @@
 {% block content %}
   <h2>Liste des groupes</h2>
   <p class="intro">Ici vous voyez tous les groupes. Vous pouvez créer, modifier ou supprimer un groupe.</p>
-  <a class="button" href="{% url 'group_create' %}">Ajouter un groupe</a>
+  <a class="button" href="{% url 'gestionapp:group_create' %}">Ajouter un groupe</a>
   <table>
     <thead><tr><th>ID</th><th>Nom</th><th>Actions</th></tr></thead>
     <tbody>
       {% for group in groups %}
       <tr>
         <td>{{ group.id }}</td>
-        <td>{{ group.nom }}</td>
+        <td>{{ group.name }}</td>
         <td>
-          <a class="button link" href="{% url 'group_detail' group.pk %}">Détail</a>
-          <a class="button" href="{% url 'group_update' group.pk %}">Modifier</a>
-          <a class="button danger" href="{% url 'group_delete' group.pk %}">Supprimer</a>
+          <a class="button Link" href="{% url 'gestionapp:group_detail' group.pk %}">Détail</a>
+          <a class="button" href="{% url 'gestionapp:group_update' group.pk %}">Modifier</a>
+          <a class="button danger" href="{% url 'gestionapp:group_delete' group.pk %}">Supprimer</a>
         </td>
       </tr>
       {% empty %}

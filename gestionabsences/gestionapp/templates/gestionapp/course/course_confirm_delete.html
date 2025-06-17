@@ -1,0 +1,11 @@
+{% extends "gestionapp/base.html" %}
+{% block title %}Supprimer le cours{% endblock %}
+{% block content %}
+  <h2>Supprimer le cours</h2>
+  <p>Êtes-vous sûr de vouloir supprimer le cours <strong>{{ course.name }}</strong> ? Cette action est irréversible.</p>
+  <form method="post">
+    {% csrf_token %}
+    <button class="button danger" type="submit">Confirmer la suppression</button>
+    <a class="button link" href="{% url 'gestionapp:course_list' %}">Annuler</a>
+  </form>
+{% endblock %}
