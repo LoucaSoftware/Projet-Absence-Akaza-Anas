@@ -5,6 +5,6 @@
   <p>Voulez-vous vraiment supprimer l’absence de {{ absence.student.nom }} du {{ absence.date }} ?</p>
   <form method="post">{% csrf_token %}
     <button type="submit">Oui, supprimer</button>
-    <a href="{% url 'absence_list' %}">Non, revenir</a>
+    <a href="{% url 'gestionapp:absence_list' %}">Non, revenir</a>
   </form>
 {% endblock %}

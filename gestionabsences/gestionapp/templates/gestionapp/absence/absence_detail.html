@@ -4,8 +4,8 @@
   <h2>Absence de {{ absence.student.nom }} le {{ absence.date }}</h2>
   <p>Motif : {{ absence.motif }}</p>
   <p>
-    <a href="{% url 'absence_update' absence.pk %}">Modifier</a> |
-    <a href="{% url 'absence_delete' absence.pk %}">Supprimer</a> |
-    <a href="{% url 'absence_list' %}">Retour à la liste</a>
+    <a href="{% url 'gestionapp:absence_update' absence.pk %}">Modifier</a> |
+    <a href="{% url 'gestionapp:absence_delete' absence.pk %}">Supprimer</a> |
+    <a href="{% url 'gestionapp:absence_list' %}">Retour à la liste</a>
   </p>
 {% endblock %}

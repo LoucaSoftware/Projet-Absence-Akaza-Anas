@@ -1,11 +1,22 @@
-<!-- group_detail.html -->
+<!-- gestionapp/templates/gestionapp/group_detail.html -->
 {% extends "gestionapp/base.html" %}
-{% block title %}Détail Groupe{% endblock %}
+
+{% block title %}Détail groupe {{ group.nom }}{% endblock %}
+
+{% block breadcrumb %}
+  <a href="{% url 'gestionapp:group_list' %}">Groupes</a> &gt; <span>{{ group.nom }}</span>
+{% endblock %}
+
 {% block content %}
   <h2>Détails du groupe {{ group.nom }}</h2>
   <p class="intro">Informations détaillées. Vous pouvez modifier ou supprimer.</p>
-  <ul><li>ID: {{ group.id }}</li><li>Nom: {{ group.nom }}</li></ul>
-  <a class="button" href="{% url 'group_update' group.pk %}">Modifier</a>
-  <a class="button danger" href="{% url 'group_delete' group.pk %}">Supprimer</a>
-  <a class="button link" href="{% url 'group_list' %}">Retour à la liste</a>
+  <ul>
+    <li><strong>ID :</strong> {{ group.id }}</li>
+    <li><strong>Nom :</strong> {{ group.nom }}</li>
+  </ul>
+  <div class="actions">
+    <a class="button" href="{% url 'gestionapp:group_update' group.pk %}">Modifier</a>
+    <a class="button danger" href="{% url 'gestionapp:group_delete' group.pk %}">Supprimer</a>
+    <a class="button link" href="{% url 'gestionapp:group_list' %}">Retour à la liste</a>
+  </div>
 {% endblock %}

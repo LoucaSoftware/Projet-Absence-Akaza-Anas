@@ -1,10 +1,15 @@
-
-<!-- accueil.html -->
 {% extends "gestionapp/base.html" %}
-{% block title %}Accueil{% endblock %}
+
+{% block title %}Home{% endblock %}
+
+{% block breadcrumb %}
+  <a href="{% url 'gestionapp:accueil' %}">Accueil</a> &gt; <span>Tableau de bord</span>
+{% endblock %}
+
 {% block content %}
   <h1>Bienvenue sur l'outil de gestion des absences</h1>
-  <p class="intro">Cette interface vous permet de :<ul>
+  <p>Cette interface vous permet de :</p>
+  <ul>
     <li>Gérer les <strong>groupes</strong> d'étudiants</li>
     <li>Gérer les <strong>étudiants</strong> et leurs informations</li>
     <li>Gérer les <strong>enseignants</strong></li>
@@ -12,6 +17,19 @@
     <li>Enregistrer et justifier les <strong>absences</strong></li>
     <li>Importer des absences depuis un fichier</li>
     <li>Générer des rapports de cours ou d'étudiants</li>
-  </ul></p>
-  <p>Utilisez le menu déroulant en haut pour naviguer.</p>
+  </ul>
+  <p>Utilisez le menu sur la gauche pour naviguer.</p>
+{% endblock %}
+
+{% block sidebar %}
+  <h2>Navigation</h2>
+  <ul>
+    <li><a href="{% url 'gestionapp:groupes' %}">Groupes</a></li>
+    <li><a href="{% url 'gestionapp:etudiants' %}">Étudiants</a></li>
+    <li><a href="{% url 'gestionapp:enseignants' %}">Enseignants</a></li>
+    <li><a href="{% url 'gestionapp:cours' %}">Cours</a></li>
+    <li><a href="{% url 'gestionapp:absences' %}">Absences</a></li>
+    <li><a href="{% url 'gestionapp:import_absences' %}">Importer Absences</a></li>
+    <li><a href="{% url 'gestionapp:rapports' %}">Rapports</a></li>
+  </ul>
 {% endblock %}

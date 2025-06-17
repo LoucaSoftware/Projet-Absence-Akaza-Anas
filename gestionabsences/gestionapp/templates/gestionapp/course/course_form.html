@@ -1,0 +1,16 @@
+{% extends "gestionapp/base.html" %}
+{% block title %}{% if course %}Modifier le cours{% else %}Ajouter un cours{% endif %}{% endblock %}
+{% block content %}
+  <h2>{% if course %}Modifier le cours{% else %}Ajouter un cours{% endif %}</h2>
+  <p>Remplissez le formulaire pour {% if course %}modifier{% else %}ajouter{% endif %} un cours.</p>
+  <form method="post" class="form-container">
+    {% csrf_token %}
+    <div class="form-fields">
+      {{ form.as_p }}
+    </div>
+    <div class="form-actions">
+      <button class="button" type="submit">Enregistrer</button>
+      <a class="button link" href="{% url 'gestionapp:course_list' %}">Annuler / Retour</a>
+    </div>
+  </form>
+{% endblock %}

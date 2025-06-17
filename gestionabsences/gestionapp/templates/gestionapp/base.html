@@ -1,36 +1,48 @@
-<!-- base.html -->
 {% load static %}
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% block title %}Gestion des absences{% endblock %}</title>
+  <title>{% block title %}Gestion des absences projet{% endblock %}</title>
+  {# On ne charge le CSS qu’ici, une seule fois #}
   <link rel="stylesheet" href="{% static 'gestionapp/style.css' %}">
 </head>
 <body>
-  <header>
-    <nav class="navbar">
-      <div class="logo">Gestion Absences</div>
-      <div class="dropdown">
-        <button class="dropbtn">Menu ⋮</button>
-        <div class="dropdown-content">
-          <a href="{% url 'gestionapp:accueil' %}">Accueil</a>
-          <a href="{% url 'gestionapp:group_list' %}">Groupes</a>
-          <a href="{% url 'gestionapp:student_list' %}">Étudiants</a>
-          <a href="{% url 'gestionapp:teacher_list' %}">Enseignants</a>
-          <a href="{% url 'gestionapp:course_list' %}">Cours</a>
-          <a href="{% url 'gestionapp:absence_list' %}">Absences</a>
-          <a href="{% url 'gestionapp:import_absences' %}">Importer</a>
-        </div>
-      </div>
+  <!-- Sidebar fixe -->
+  <aside class="sidebar">
+    <div class="logo">Gestion Absences projet</div>
+    <nav>
+      <a href="{% url 'gestionapp:accueil' %}">Accueil</a>
+      <a href="{% url 'gestionapp:group_list' %}">Groupes</a>
+      <a href="{% url 'gestionapp:student_list' %}">Étudiants</a>
+      <a href="{% url 'gestionapp:teacher_list' %}">Enseignants</a>
+      <a href="{% url 'gestionapp:course_list' %}">Cours</a>
+      <a href="{% url 'gestionapp:absence_list' %}">Absences</a>
+      <a href="{% url 'gestionapp:import_absences' %}">Importer justificatifs</a>
+      
     </nav>
-  </header>
-  <main>
-    {% block content %}{% endblock %}
-  </main>
-  <footer>
-    &copy; 2025 Mon Entreprise | Outil de démonstration
-  </footer>
+  </aside>
+
+  <div class="main">
+    <!-- Header / Breadcrumb -->
+    <header class="header">
+      <div class="breadcrumb">
+        {% block breadcrumb %}
+          <a href="{% url 'gestionapp:accueil' %}">Accueil</a>
+        {% endblock %}
+      </div>
+    </header>
+
+    <!-- Contenu principal -->
+    <main class="content">
+      {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      &copy; 2025 SAE projet akaza-luca-anas | Outil de démonstration
+    </footer>
+  </div>
 </body>
 </html>

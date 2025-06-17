@@ -2,161 +2,184 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView, TemplateView
 from .models import Group, Student, Teacher, Course, Absence
+from .forms import CourseForm, StudentForm, TeacherForm, GroupForm, AbsenceForm
 
-def index(request):
-    return render(request, 'gestionapp/accueil.html')
+
+# ACCUEIL
+
 
 class AccueilView(TemplateView):
     template_name = 'gestionapp/accueil.html'
 
-# Group Views
-class GroupListView(ListView):
-    model = Group
-    template_name = 'gestionapp/group/group_list.html'
-    context_object_name = 'groups'
+class AccueilView(TemplateView):
+    template_name = 'gestionapp/accueil.html'
+def group_list(request):
+    groups = Group.objects.all()
+    return render(request, 'gestionapp/group/group_list.html', {'groups': groups})
 
-class GroupCreateView(CreateView):
-    model = Group
-    fields = ['name']
-    template_name = 'gestionapp/group/group_form.html'
-    success_url = reverse_lazy('group_list')
+def group_detail(request, pk):
+    group = get_object_or_404(Group, pk=pk)
+    return render(request, 'gestionapp/group/group_detail.html', {'group': group})
 
-class GroupUpdateView(UpdateView):
-    model = Group
-    fields = ['name']
-    template_name = 'gestionapp/group/group_form.html'
-    success_url = reverse_lazy('group_list')
+def group_create(request):
+    form = GroupForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect('gestionapp:group_list')
+    return render(request, 'gestionapp/group/group_form.html', {'form': form})
 
-class GroupDeleteView(DeleteView):
-    model = Group
-    template_name = 'gestionapp/group/group_confirm_delete.html'
-    success_url = reverse_lazy('group_list')
+def group_update(request, pk):
+    group = get_object_or_404(Group, pk=pk)
+    form = GroupForm(request.POST or None, instance=group)
+    if form.is_valid():
+        form.save()
+        return redirect('gestionapp:group_list')
+    return render(request, 'gestionapp/group/group_form.html', {'form': form})
 
-# Group Detail View
-class GroupDetailView(DetailView):
-    model = Group
-    template_name = 'gestionapp/group/group_detail.html'
-    context_object_name = 'group'
-
-# Student Views
-class StudentListView(ListView):
-    model = Student
-    template_name = 'gestionapp/student/student_list.html'
-    context_object_name = 'students'
-
-class StudentCreateView(CreateView):
-    model = Student
-    fields = ['last_name', 'first_name', 'group']
-    template_name = 'gestionapp/student/student_form.html'
-    success_url = reverse_lazy('student_list')
-
-class StudentUpdateView(UpdateView):
-    model = Student
-    fields = ['last_name', 'first_name', 'group']
-    template_name = 'gestionapp/student/student_form.html'
-    success_url = reverse_lazy('student_list')
-
-class StudentDeleteView(DeleteView):
-    model = Student
-    template_name = 'gestionapp/student/student_confirm_delete.html'
-    context_object_name = 'student'
-    success_url = reverse_lazy('student_list')
-
-# Student Detail View
-class StudentDetailView(DetailView):
-    model = Student
-    template_name = 'gestionapp/student/student_detail.html'
-    context_object_name = 'student'
-
-# Teacher Views
-
-# Teacher Detail View
-class TeacherDetailView(DetailView):
-    model = Teacher
-    template_name = 'gestionapp/teacher/teacher_detail.html'
-    context_object_name = 'teacher'
-
-class TeacherListView(ListView):
-    model = Teacher
-    template_name = 'gestionapp/teacher/teacher_list.html'
-    context_object_name = 'teachers'
-
-class TeacherCreateView(CreateView):
-    model = Teacher
-    fields = ['last_name', 'first_name']
-    template_name = 'gestionapp/teacher/teacher_form.html'
-    success_url = reverse_lazy('teacher_list')
-
-class TeacherUpdateView(UpdateView):
-    model = Teacher
-    fields = ['last_name', 'first_name']
-    template_name = 'gestionapp/teacher/teacher_form.html'
-    success_url = reverse_lazy('teacher_list')
-
-class TeacherDeleteView(DeleteView):
-    model = Teacher
-    template_name = 'gestionapp/teacher/teacher_confirm_delete.html'
-    context_object_name = 'teacher'
-    success_url = reverse_lazy('teacher_list')
+def group_delete(request, pk):
+    group = get_object_or_404(Group, pk=pk)
+    if request.method == 'POST':
+        group.delete()
+        return redirect('gestionapp:group_list')
+    return render(request, 'gestionapp/group/group_confirm_delete.html', {'group': group})
 
 
 
-# Course Views
-class CourseListView(ListView):
-    model = Course
-    template_name = 'gestionapp/course/course_list.html'
-    context_object_name = 'courses'
+# STUDENT
 
-class CourseCreateView(CreateView):
-    model = Course
-    fields = ['title', 'date', 'teacher', 'duration', 'group']
-    template_name = 'gestionapp/course/course_form.html'
-    success_url = reverse_lazy('course_list')
 
-class CourseUpdateView(UpdateView):
-    model = Course
-    fields = ['title', 'date', 'teacher', 'duration', 'group']
-    template_name = 'gestionapp/course/course_form.html'
-    success_url = reverse_lazy('course_list')
+def student_list(request):
+    students = Student.objects.all()
+    return render(request, 'gestionapp/student/student_list.html', {'students': students})
 
-class CourseDeleteView(DeleteView):
-    model = Course
-    template_name = 'gestionapp/course/course_confirm_delete.html'
-    context_object_name = 'course'
-    success_url = reverse_lazy('course_list')
+def student_detail(request, pk):
+    student = get_object_or_404(Student, pk=pk)
+    return render(request, 'gestionapp/student/student_detail.html', {'student': student})
 
-class CourseDetailView(DetailView):
-    model = Course
-    template_name = 'gestionapp/course/course_detail.html'
-    context_object_name = 'course'
+def student_create(request):
+    form = StudentForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect('gestionapp:student_list')
+    return render(request, 'gestionapp/student/student_form.html', {'form': form})
 
-# Absence Views
-class AbsenceListView(ListView):
-    model = Absence
-    template_name = 'gestionapp/absence/absence_list.html'
-    context_object_name = 'absences'
+def student_update(request, pk):
+    student = get_object_or_404(Student, pk=pk)
+    form = StudentForm(request.POST or None, instance=student)
+    if form.is_valid():
+        form.save()
+        return redirect('gestionapp:student_list')
+    return render(request, 'gestionapp/student/student_form.html', {'form': form})
 
-class AbsenceCreateView(CreateView):
-    model = Absence
-    fields = ['student', 'course', 'justified', 'justification']
-    template_name = 'gestionapp/absence/absence_form.html'
-    success_url = reverse_lazy('absence_list')
+def student_delete(request, pk):
+    student = get_object_or_404(Student, pk=pk)
+    if request.method == 'POST':
+        student.delete()
+        return redirect('gestionapp:student_list')
+    return render(request, 'gestionapp/student/student_confirm_delete.html', {'student': student})
 
-class AbsenceUpdateView(UpdateView):
-    model = Absence
-    fields = ['student', 'course', 'justified', 'justification']
-    template_name = 'gestionapp/absence/absence_form.html'
-    success_url = reverse_lazy('absence_list')
 
-class AbsenceDeleteView(DeleteView):
-    model = Absence
-    template_name = 'gestionapp/absence/absence_confirm_delete.html'
-    context_object_name = 'absence'
-    success_url = reverse_lazy('absence_list')
-class AbsenceDetailView(DetailView):
-    model = Absence
-    template_name = 'gestionapp/absence/absence_detail.html'
-    context_object_name = 'absence'
+
+# TEACHER
+
+def teacher_list(request):
+    teachers = Teacher.objects.all()
+    return render(request, 'gestionapp/teacher/teacher_list.html', {'teachers': teachers})
+
+def teacher_detail(request, pk):
+    teacher = get_object_or_404(Teacher, pk=pk)
+    return render(request, 'gestionapp/teacher/teacher_detail.html', {'teacher': teacher})
+
+def teacher_create(request):
+    form = TeacherForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect('gestionapp:teacher_list')
+    return render(request, 'gestionapp/teacher/teacher_form.html', {'form': form})
+
+def teacher_update(request, pk):
+    teacher = get_object_or_404(Teacher, pk=pk)
+    form = TeacherForm(request.POST or None, instance=teacher)
+    if form.is_valid():
+        form.save()
+        return redirect('gestionapp:teacher_list')
+    return render(request, 'gestionapp/teacher/teacher_form.html', {'form': form})
+
+def teacher_delete(request, pk):
+    teacher = get_object_or_404(Teacher, pk=pk)
+    if request.method == 'POST':
+        teacher.delete()
+        return redirect('gestionapp:teacher_list')
+    return render(request, 'gestionapp/teacher/teacher_confirm_delete.html', {'teacher': teacher})
+
+
+
+# COURSE
+
+def course_list(request):
+    courses = Course.objects.all()
+    return render(request, 'gestionapp/course/course_list.html', {'courses': courses})
+
+def course_detail(request, pk):
+    course = get_object_or_404(Course, pk=pk)
+    return render(request, 'gestionapp/course/course_detail.html', {'course': course})
+
+def course_create(request):
+    form = CourseForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect('gestionapp:course_list')
+    return render(request, 'gestionapp/course/course_form.html', {'form': form})
+
+def course_update(request, pk):
+    course = get_object_or_404(Course, pk=pk)
+    form = CourseForm(request.POST or None, instance=course)
+    if form.is_valid():
+        form.save()
+        return redirect('gestionapp:course_list')
+    return render(request, 'gestionapp/course/course_form.html', {'form': form})
+
+def course_delete(request, pk):
+    course = get_object_or_404(Course, pk=pk)
+    if request.method == 'POST':
+        course.delete()
+        return redirect('gestionapp:course_list')
+    return render(request, 'gestionapp/course/course_confirm_delete.html', {'course': course})
+
+
+# ====================
+# ABSENCE
+# ====================
+def absence_list(request):
+    absences = Absence.objects.all()
+    return render(request, 'gestionapp/absence/absence_list.html', {'absences': absences})
+
+def absence_detail(request, pk):
+    absence = get_object_or_404(Absence, pk=pk)
+    return render(request, 'gestionapp/absence/absence_detail.html', {'absence': absence})
+
+def absence_create(request):
+    form = AbsenceForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect('gestionapp:absence_list')
+    return render(request, 'gestionapp/absence/absence_form.html', {'form': form})
+
+def absence_update(request, pk):
+    absence = get_object_or_404(Absence, pk=pk)
+    form = AbsenceForm(request.POST or None, instance=absence)
+    if form.is_valid():
+        form.save()
+        return redirect('gestionapp:absence_list')
+    return render(request, 'gestionapp/absence/absence_form.html', {'form': form})
+
+def absence_delete(request, pk):
+    absence = get_object_or_404(Absence, pk=pk)
+    if request.method == 'POST':
+        absence.delete()
+        return redirect('gestionapp:absence_list')
+    return render(request, 'gestionapp/absence/absence_confirm_delete.html', {'absence': absence})
+
 
 
 
@@ -169,7 +192,7 @@ from .models import Absence, Course, Student
 class ImportAbsencesView(FormView):
     template_name = 'gestionapp/absence/import_absences.html'
     form_class = ImportAbsencesForm
-    success_url = reverse_lazy('absences_list')
+    success_url = reverse_lazy('gestionapp:absences_list')
 
     def form_valid(self, form):
         fichier = form.cleaned_data['fichier_csv']
@@ -193,3 +216,20 @@ class StudentAbsencesReportView(ListView):
     def get_queryset(self):
         student_pk = self.kwargs.get('pk')
         return Absence.objects.filter(student__pk=student_pk)
+
+
+
+
+
+from .models import Group
+from .forms import GroupForm
+
+def group_create(request):
+    if request.method == "POST":
+        form = GroupForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('gestionapp:group_list')
+    else:
+        form = GroupForm()
+    return render(request, 'gestionapp/group/group_form.html', {'form': form})

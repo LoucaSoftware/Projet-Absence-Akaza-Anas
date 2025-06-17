@@ -1,9 +1,27 @@
-<!-- group_form.html -->
 {% extends "gestionapp/base.html" %}
-{% block title %}{% if form.instance.pk %}Modifier Groupe{% else %}Nouveau Groupe{% endif %}{% endblock %}
+
+{% block title %}
+  {% if form.instance.pk %}Modifier Groupe{% else %}Nouveau Groupe{% endif %}
+{% endblock %}
+
 {% block content %}
   <h2>{% if form.instance.pk %}Modifier{% else %}Ajouter{% endif %} un groupe</h2>
-  <p class="intro">Remplissez le formulaire ci-dessous et cliquez sur Enregistrer.</p>
-  <form method="post">{% csrf_token %}{{ form.as_p }}<button class="button" type="submit">Enregistrer</button></form>
-  <p><a class="button link" href="{% url 'group_list' %}">Retour</a></p>
+  <p class="intro">
+    {% if form.instance.pk %}
+      Modifiez les informations du groupe ci-dessous.
+    {% else %}
+      Remplissez le formulaire pour ajouter un nouveau groupe.
+    {% endif %}
+  </p>
+
+  <form method="post" class="form-container">
+    {% csrf_token %}
+    <div class="form-fields">
+      {{ form.as_p }}
+    </div>
+    <div class="form-actions">
+      <button class="button" type="submit">Enregistrer</button>
+      <a class="button link" href="{% url 'gestionapp:group_list' %}">Annuler / Retour</a>
+    </div>
+  </form>
 {% endblock %}
